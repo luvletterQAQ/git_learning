@@ -1,0 +1,129 @@
+System:
+	public static native void arraycopy(Object src,  int  srcPos,
+                                        Object dest, int destPos,
+                                        int length);
+Arrays：
+	public static int[] copyOf(int[] original, int newLength) //int可换为8种基本数据类型 
+											//返回数组的拷贝 新数组的长度为newLength 如果newLength小于原数组长度
+											//则只拷贝前部分
+	public static <T> T[] copyOf(T[] original, int newLength) //同上
+		
+
+	
+ArrayList:
+	public boolean add(E e)
+	public boolean contains(Object o)
+	public void clear()								//将数组元素全部设置为null  但容量不变
+	public E get(int index)
+	public int indexOf(Object o)
+	public int lastIndexOf(Object o)
+	public E remove(int index)
+	public boolean remove(Object o)
+	public boolean removeAll(Collection<?> c)		//删除list中c有的元素(如果有)
+	public boolean retainAll(Collection<?> c)		//保留list中c有的元素(如果有)
+	public Object[] toArray()						//创建一个数组拷贝后返回
+	public <T> T[] toArray(T[] a)					//如果a的空间不够，则创建一个新数组拷贝后返回
+										//如果a的空间足够，则拷贝到数组a中，并将a中拷贝的最后一个位置的下一位置设为null
+	public void trimToSize()						//将数组容量设置为元素个数
+
+LinkedList：
+	继承自Deque：
+		public void addFirst(E e)
+		public void addLast(E e)
+		public E removeFirst()=public E remove()	//链表为空抛异常
+		public E removeLast()
+		public E getFirst()				//链表为空抛异常			
+		public E getLast()
+		
+		public boolean offer(E e)
+		public boolean offerFirst(E e)
+		public boolean offerLast(E e)
+		public E pollFirst()=public E poll()	//链表为空返回空
+		public E pollLast()
+		public E peekFirst()=public E peek()	//链表为空返回空
+		public E peekLast()
+		
+		public E pop()=public E removeFirst()
+		public void push(E e)=public void addFirst(E e)
+		
+	继承自List族：
+		public boolean add(E e)
+		public void add(int index, E element)
+		public boolean addAll(Collection<? extends E> c)
+		public boolean addAll(int index, Collection<? extends E> c)
+		public void clear()
+		public int size()
+		public Object[] toArray()
+		public <T> T[] toArray(T[] a)
+	
+	
+HashSet：
+	public boolean add(E e)
+	public void clear()
+	public boolean contains(Object o)
+	public boolean remove(Object o)
+	
+Integer:
+	public static Integer valueOf(int i)
+	public static Integer valueOf(String s)
+	public static String toString(int i)  
+	public int compareTo(Integer anotherInteger)  //重写的Comparable的方法
+	public double doubleValue()
+	public float floatValue()
+	public int intValue()
+	public long longValue()
+	public byte byteValue()
+	public short shortValue()  //强制转换
+	public static int parseInt(String s) throws NumberFormatException
+	public static int parseInt(String s, int radix) throws NumberFormatException
+	
+	
+String：
+	public int compareTo(String anotherString)
+	public int compareToIgnoreCase(String str)
+	public String concat(String str) //新创建一个String 拼接(数组拷贝)后赋给新String并返回。原String对象不变。
+	public boolean contains(CharSequence s)
+	public boolean endsWith(String suffix)
+	public boolean equalsIgnoreCase(String anotherString)
+	public byte[] getBytes(String charsetName) //如果不指定字符集，则得到的是一个操作系统默
+				//认的编码格式的字节数组；如果指定字符集，则会将当前字符串按照指定编码变成字节流
+				//如果想让字节数组变成字符串，可以通过String(byte[], String CharsetName)构造函数实现
+				//CharsetName是指定的解码方式(假如你这个字节流采用GBK编码，那就要用GBK来解码)
+	public void getChars(int srcBegin, int srcEnd, char dst[], int dstBegin) //将String对象放到dst数组中指定位置
+	public int indexOf(int ch, int fromIndex)
+	public int indexOf(String str, int fromIndex)
+	public native String intern()
+	public int lastIndexOf(int ch, int fromIndex)
+	public int lastIndexOf(String str, int fromIndex)
+	public boolean matches(String regex)
+	public boolean regionMatches(int toffset, String other, int ooffset, int len)
+	public boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len)
+	public String replace(CharSequence target, CharSequence replacement)
+	public String replaceAll(String regex, String replacement)
+	public String replaceFirst(String regex, String replacement)
+	public String[] split(String regex) //头尾的空格默认去掉
+	public String[] split(String regex, int limit) //从头开始找分隔符，
+					//最后数组的大小为limit，头尾的空格不去掉
+	public boolean startsWith(String prefix, int toffset) //从toffset开始找
+	public String substring(int beginIndex, int endIndex)
+	public char[] toCharArray()
+	public String toLowerCase()
+	public String toUpperCase()
+	public String trim()
+	public static String valueOf(int i)=Integer.toString(i) //8种基本数据类型 转为String
+	public static String valueOf(Object obj) == toString() 
+FileInputStream：
+	public int available() //还有多少字节未读 内部调用本地方法
+	public int read() //读一个字节启动一次IO
+	public int read(byte b[], int off, int len) //读多个字节启动一次IO
+	public long skip(long n) //跳过n个字节不读
+	public synchronized void mark(int readlimit) //标记当前位置，在调用mark之后如果
+								//读取超过readlimit个字节后标记失效。
+								//FileInputStream的mark方法默认是空的
+	public boolean markSupported() //当前类是否支持mark和reset方法。FIS的这个方法返回false，默认不支持
+	public synchronized void reset() //返回到mark标记的位置 如果超过了readlimit的限制或者
+								//没有调用mark方法则抛出异常。FIS不支持这个方法，默认抛出异常
+FileOutputStream：
+	public void flush() //默认空实现  因为没有缓冲区
+	public void write(byte b[], int off, int len)
+	public void write(int b)
